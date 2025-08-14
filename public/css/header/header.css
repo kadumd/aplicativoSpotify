@@ -1,0 +1,66 @@
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 10%;
+    width: 80%;
+}
+
+ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 45%;
+}
+
+#voltar{
+    height: 40px;
+    width: 40px;
+    background-color: rgb(59, 59, 59);
+}
+
+#iconeDeCasa{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: rgb(59, 59, 59);
+}
+
+#barraDePesquisa {
+    height: 40px;
+    width: 450px;
+    font-size: 20px;
+    border-radius: 40px;
+    color: white;
+    background-color: rgb(59, 59, 59);
+    background-image: url("https://flyclipart.com/thumb2/lupa-logo-png-png-image-12550.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 2em;
+    padding-left: 3em;
+}
+
+#barraDePesquisa:focus{
+    border: solid white 3px;
+}
+
+nav{
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    height: 10%;
+    width: 50%;
+}
+
+.abas{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    font-size: 15px;
+    border-radius: 40px;
+    color: white;
+    background-color: rgb(59, 59, 59);
+}

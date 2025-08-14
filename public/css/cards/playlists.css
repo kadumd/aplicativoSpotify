@@ -1,0 +1,28 @@
+.card-de-playlists{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 200px;
+    width: 175px;
+    transition: 0.3s;
+}
+
+.card-de-playlists:hover{
+    border-radius: 10px;
+    background-color: rgb(59, 59, 59);
+    .foto-da-playlist{
+        background-color: rgb(21, 21, 21);
+    }
+}
+
+.foto-da-playlist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 150px;
+    width: 150px;
+    border-radius: 25px;
+    background-color: rgb(59, 59, 59);
+}

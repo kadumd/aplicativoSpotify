@@ -1,0 +1,28 @@
+.card-de-artista{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 200px;
+    width: 175px;
+    transition: 0.3s;
+}
+
+.card-de-artista:hover{
+    border-radius: 10px;
+    background-color: rgb(59, 59, 59);
+    .foto-do-artista{
+        background-color: rgb(21, 21, 21);
+    }
+}
+
+.foto-do-artista{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: rgb(59, 59, 59);
+}

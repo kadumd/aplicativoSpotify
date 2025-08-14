@@ -1,0 +1,9 @@
+#section-albuns{
+    display: none;
+    justify-content: space-between;
+    height: 90%;
+    width: 100%;
+    gap: 20px 0px;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
