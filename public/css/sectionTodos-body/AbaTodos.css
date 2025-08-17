@@ -7,10 +7,6 @@
     width: 100%;
 }
 
-#musicas-subtitulo-aba-todos{
-    font-size: 30px;
-}
-
 #lista-de-musicas{
     display: flex;
     flex-direction: column;
@@ -21,10 +17,6 @@
 }
 
 /* artistas */
-
-#artistas-subtitulo-aba-todos{
-    font-size: 30px;
-}
 
 #lista-de-artistas{
     display: flex;

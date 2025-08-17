@@ -1,4 +1,5 @@
 @import url('./global/global.css');
+@import url('./footer/footer.css');
 @import url('./header/header.css');
 @import url('./sectionInicial/inicial.css');
 @import url('./sectionTodos-body/AbaTodos.css');
@@ -6,6 +7,7 @@
 @import url('./sectionArtistas-body/abaArtistas.css');
 @import url('./sectionAlbuns-body/abaAlbuns.css');
 @import url('./sectionPlaylists-body/abaPlaylists.css');
+@import url('./sectionPesquisa-body/abaPesquisa.css');
 @import url('./cards/faixas.css');
 @import url('./cards/artistas.css');
 @import url('./cards/albuns.css');

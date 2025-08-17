@@ -17,7 +17,7 @@
     align-items: center;
     justify-content: space-around;
     height: 100%;
-    width: 200px;
+    width: 450px;
 }
 
 .imagem-da-musica{
@@ -28,6 +28,20 @@
     width: 50px;
     border-radius: 10px;
     background-color: black;
+}
+
+.detalhes-principais-da-faixa{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+    height: 100%;
+    width: 375px;
+}
+
+.nome-do-artistas-faixa{
+    font-size: 15px;
+    color: gray;
 }
 
 .nome-do-album-duracao-da-musica{

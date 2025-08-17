@@ -1,0 +1,45 @@
+#section-pesquisa{
+    display: none;
+    justify-content: space-between;
+    height: 90%;
+    width: 100%;
+    gap: 20px 0px;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+#resultadoDaPesquisaMusicas{
+    height: 400px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+#resultadoDaPesquisaArtistas{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 250px;
+    width: 100%;
+    gap: 0px 20px;
+    overflow-y: scroll;
+}
+
+#resultadoDaPesquisaAlbuns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 250px;
+    width: 100%;
+    gap: 0px 20px;
+    overflow-y: scroll;
+}
+
+#resultadoDaPesquisaPlaylists{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 250px;
+    width: 100%;
+    gap: 0px 20px;
+    overflow-y: scroll;
+}

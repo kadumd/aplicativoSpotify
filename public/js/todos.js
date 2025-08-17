@@ -1,14 +1,4 @@
 export default class Todos {
-    constructor() {
-        this.fazerPedido()
-    }
-
-    fazerPedido = async () => {
-        const pedidoPromisses = await fetch("/pedido")
-        const pedido = await pedidoPromisses.json()
-        console.log(pedido)
-    }
-
     adicionarHabilidadesNaSection = (habilidades) => {
         paginaQueEstaHabilidadeTexto.textContent = ''
         paginaQueEstaHabilidadeTexto.textContent = this.paginaQueEstaHabilidade
