@@ -6,7 +6,7 @@ export default class Controller {
         this.pegarMusicasAbaMusicas()
         this.pegarArtistasAbaArtistas()
         this.pegarAlbunsAbaAlbuns()
-        // this.pegarPlaylistsAbaPlaylists()
+        this.pegarPlaylistsAbaPlaylists()
     }
     pegarArtistasEMusicasAbaTodos = async () => {
         const dados = await this.model.receberDadosDasMusicasEArtistasAbaTodos()

@@ -31,7 +31,7 @@ export default class Pesquisa {
             this.adicionarMusicasNaAbaPesquisa(response, "resultadoDaPesquisaMusicas")
             this.adicionarArtistasNaAbaPesquisa(response, "resultadoDaPesquisaArtistas")
             this.adicionarAlbunsNaAbaPesquisa(response, "resultadoDaPesquisaAlbuns")
-            // this.adicionarPlaylistsNaAbaPesquisa(response, "resultadoDaPesquisaPlaylists")
+            this.adicionarPlaylistsNaAbaPesquisa(response, "resultadoDaPesquisaPlaylists")
         })
     }
 

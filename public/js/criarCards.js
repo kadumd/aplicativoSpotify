@@ -1,4 +1,8 @@
 export default class CriarCards {
+    constructor(funcaoClick) {
+        this.funcaoClick = funcaoClick
+    }
+
     criarCardsMusicas = (dados, container = false) => {
         const parteMusica = dados.musica
         console.log(dados)
@@ -71,6 +75,8 @@ export default class CriarCards {
             cardDeArtista.appendChild(fotoDoArtista)
             cardDeArtista.appendChild(nomeDoArtista)
             sectionArtistas.appendChild(cardDeArtista)
+
+            cardDeArtista.addEventListener('click', () => { this.funcaoClick.clickCardArtista(element.id) })
         });
     }
 
@@ -94,13 +100,15 @@ export default class CriarCards {
             cardDeAlbuns.appendChild(fotoDoAlbum)
             cardDeAlbuns.appendChild(nomeDoAlbum)
             sectionAlbuns.appendChild(cardDeAlbuns)
+
+            cardDeAlbuns.addEventListener('click', () => { this.funcaoClick.clickCardAlbum(element.id) })
         });
-    }
+    } 
 
     criarCardsPlaylists = (dados, container = false) => {
         const partePlaylists = dados.playlist
         console.log(dados)
-        const sectionPlaylists = document.querySelector()
+        const sectionPlaylists = document.querySelector(`#${container}`)
         sectionPlaylists.innerHTML = ''
         partePlaylists.forEach(element => {
             const cardDePlaylists = document.createElement('div')
@@ -117,6 +125,8 @@ export default class CriarCards {
             cardDePlaylists.appendChild(fotoDaPlaylist)
             cardDePlaylists.appendChild(nomeDaPlaylist)
             sectionPlaylists.appendChild(cardDePlaylists)
+
+            cardDePlaylists.addEventListener('click', () => { this.funcaoClick.clickCardPlaylist(element.id) })
         });
     }
 }

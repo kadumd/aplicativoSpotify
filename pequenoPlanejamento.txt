@@ -1,0 +1,9 @@
+o sistema de click vai funcionar assim:
+Quando eu clicar no card vou enviar ou o ID, HREF ou a URI da mesma forma que faço com a pesquisa.
+Logo depois eu pego e faço a peneira dos dados e o resto acho que desenrolo
+
+No album é bom usar o id, funciona, se quiser revisar é só colar o id de um album lá
+
+No artistas não apareceu quando eu pesquisei no site, MAS pode não ter funcionado pq eu não coloquei o id igual eu fiz com os outros
+
+Na playlist funcionou da mesma forma que o album
