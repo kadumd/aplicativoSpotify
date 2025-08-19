@@ -7,3 +7,7 @@ No album é bom usar o id, funciona, se quiser revisar é só colar o id de um a
 No artistas não apareceu quando eu pesquisei no site, MAS pode não ter funcionado pq eu não coloquei o id igual eu fiz com os outros
 
 Na playlist funcionou da mesma forma que o album
+
+
+uma ideia interessante de usar o model é usar a mesma coisa que o criar card, quando eu precisar fazer um pedido eu passo o
+pedido em forma de string como parametro e o body como parametro que é o que eu vou usar na api
