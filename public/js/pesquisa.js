@@ -1,6 +1,7 @@
 export default class Pesquisa {
-    constructor(criarCards) {
+    constructor(criarCards, model) {
         this.criarCards = criarCards
+        this.model = model
         this.pesquisarEventListener()
     }
     pesquisaInput = document.querySelector('#barraDePesquisa')
@@ -16,23 +17,20 @@ export default class Pesquisa {
 
     pesquisar = async () => {
         const pesquisaValor = this.pesquisaInput.value
-        fetch('/fazerPesquisa', {
-            method: 'POST',
-            body: JSON.stringify(pesquisaValor)
-        }).then(r => r.json()).then(response => {
-            const sections = document.querySelectorAll('.section')
-            const sectionPesquisa = document.querySelector('#section-pesquisa')
-            const nav = document.querySelector('nav')
-            sections.forEach(e => {
-                e.style.display = 'none'
-                nav.style.display = 'flex'
-                sectionPesquisa.style.display = 'flex'
-            });
-            this.adicionarMusicasNaAbaPesquisa(response, "resultadoDaPesquisaMusicas")
-            this.adicionarArtistasNaAbaPesquisa(response, "resultadoDaPesquisaArtistas")
-            this.adicionarAlbunsNaAbaPesquisa(response, "resultadoDaPesquisaAlbuns")
-            this.adicionarPlaylistsNaAbaPesquisa(response, "resultadoDaPesquisaPlaylists")
-        })
+        const response = await this.model.fazerPesquisa(pesquisaValor)
+
+        const sections = document.querySelectorAll('.section')
+        const sectionPesquisa = document.querySelector('#section-pesquisa')
+        const nav = document.querySelector('nav')
+        sections.forEach(e => {
+            e.style.display = 'none'
+            nav.style.display = 'flex'
+            sectionPesquisa.style.display = 'flex'
+        });
+        this.adicionarMusicasNaAbaPesquisa(response, "resultadoDaPesquisaMusicas")
+        this.adicionarArtistasNaAbaPesquisa(response, "resultadoDaPesquisaArtistas")
+        this.adicionarAlbunsNaAbaPesquisa(response, "resultadoDaPesquisaAlbuns")
+        this.adicionarPlaylistsNaAbaPesquisa(response, "resultadoDaPesquisaPlaylists")
     }
 
     adicionarMusicasNaAbaPesquisa = async (dados, idConteiner) => {

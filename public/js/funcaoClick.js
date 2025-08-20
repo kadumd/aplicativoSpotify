@@ -2,13 +2,14 @@ import CriarCards from "./criarCards.js"
 const criarCards = new CriarCards()
 
 export default class FuncaoClick {
+    constructor(model) {
+        this.model = model
+    }
+
     clickCardAlbum = async (dadosDoAlbumId) => {
-        fetch('/clicarCardAlbum', {
-            method: 'POST',
-            body: JSON.stringify(dadosDoAlbumId)
-        }).then(r => r.json()).then(e => {
-            this.criarAbaDoClickAlbum(e)
-        })
+        const pedido = await this.model.pedidoClicar('/clicarCardAlbum', dadosDoAlbumId)
+        console.log(pedido)
+        this.criarAbaDoClickAlbum(pedido)
     }
 
     criarAbaDoClickAlbum = (element) => {
@@ -38,12 +39,9 @@ export default class FuncaoClick {
     }
 
     clickCardPlaylist = async (dadosDoPlaylistId) => {
-        fetch('/clicarCardPlaylist', {
-            method: 'POST',
-            body: JSON.stringify(dadosDoPlaylistId)
-        }).then(r => r.json()).then(e => {
-            this.criarAbaDoClickPlaylist(e)
-        })
+        const pedido = await this.model.pedidoClicar('/clicarCardPlaylist', dadosDoPlaylistId)
+        console.log(pedido)
+        this.criarAbaDoClickPlaylist(pedido)
     }
 
     criarAbaDoClickPlaylist = (element) => {
@@ -74,16 +72,12 @@ export default class FuncaoClick {
     }
 
     clickCardArtista = async (dadosDoArtistaId) => {
-        fetch('/clicarCardArtista', {
-            method: 'POST',
-            body: JSON.stringify(dadosDoArtistaId)
-        }).then(r => r.json()).then(e => {
-            this.criarAbaDoClickArtista(e)
-        })
+        const pedido = await this.model.pedidoClicar('/clicarCardArtista', dadosDoArtistaId)
+        console.log(pedido)
+        this.criarAbaDoClickArtista(pedido)
     }
 
     criarAbaDoClickArtista = (element) => {
-        console.log(element)
         const sections = document.querySelectorAll('.section')
         const sectionClick = document.querySelector('#section-click')
         sectionClick.innerHTML = ''

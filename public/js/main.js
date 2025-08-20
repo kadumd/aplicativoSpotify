@@ -6,8 +6,8 @@ import Controller from "./controller.js";
 import Pesquisa from "./pesquisa.js";
 
 const model = new Model()
-const funcaoClick = new FuncaoClick()
+const funcaoClick = new FuncaoClick(model)
 const criarCards = new CriarCards(funcaoClick)
 const mudancaDeAba = new MudancaDeAba()
 const controller = new Controller(model, criarCards)
-const pesquisa = new Pesquisa(criarCards)
+const pesquisa = new Pesquisa(criarCards, model)

@@ -4,6 +4,10 @@ import path from "path"
 import { fileURLToPath } from "url"
 import querystring from "querystring"
 import { console } from "inspector"
+import ModelBack from "./modelBack.js"
+const modelBack = new ModelBack()
+import ControllerBack from "./controllerBack.js"
+const controllerBack = new ControllerBack(modelBack)
 
 const __filename = fileURLToPath(import.meta.url)//dirname
 const __dirname = path.dirname(__filename)//dirname 
@@ -22,7 +26,7 @@ app.get('/login', function (req, res) {
 
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
-            response_type: 'code',
+            response_type: 'code', 
             client_id: client_id,
             scope: scope,
             redirect_uri: redirect_uri,
@@ -55,284 +59,42 @@ app.get('/redirecionamentoSpotify', async (req, res) => {
 //entregas dos menus
 
 app.get('/pedidoMusicaEArtistaTodos', async (req, res) => {
-    console.log(tokens)
-    const musicasPromisse = await fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&limit=3', {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + tokens.access_token
-        }
-    })
-    const artistasPromisse = await fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=artist&limit=5', {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + tokens.access_token
-        }
-    })
-
-    const musica = []
-    const artista = []
-
-    const musicasRecebidas = await musicasPromisse.json();
-    musicasRecebidas.tracks.items.forEach(element => {
-        const { artists, id, name, album: album1, href } = element
-        const artist = artists['0']['name']
-        const album = album1.name
-        const image = album1.images['0']['url']
-        const audio = href
-        musica.push({ name, artist, id, album, image, audio })
-    });
-
-    const artistasRecebidos = await artistasPromisse.json();
-    artistasRecebidos.artists.items.forEach(element => {
-        const { name, uri, id, followers, genres, images } = element
-        const image = images['0']['url']
-        artista.push({ name, uri, id, followers, genres, image })
-    });
-
-    console.log(musica, artista);
-    res.end(JSON.stringify({ musica, artista }))
+    controllerBack.pedidoMusicaEArtistaTodos(req, res, tokens)
 })
 
 app.get('/pedidoMusica', async (req, res) => {
-    console.log(tokens)
-    const musicasPromisse = await fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&limit=8', {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + tokens.access_token
-        }
-    })
-
-    const musica = []
-
-    const musicasRecebidas = await musicasPromisse.json();
-    musicasRecebidas.tracks.items.forEach(element => {
-        const { artists, id, name, album: album1, href } = element
-        const artist = artists['0']['name']
-        const album = album1.name
-        const image = album1.images['0']['url']
-        const audio = href
-        musica.push({ name, artist, id, album, image, audio })
-    });
-
-    console.log(musica);
-    res.end(JSON.stringify({ musica }))
+    controllerBack.pedidoMusica(req, res, tokens)
 })
 
 app.get('/pedidoArtista', async (req, res) => {
-    console.log(tokens)
-    const artistasPromisse = await fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=artist&limit=18', {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + tokens.access_token
-        }
-    })
-    const artista = []
-
-    const artistasRecebidos = await artistasPromisse.json();
-    artistasRecebidos.artists.items.forEach(element => {
-        const { name, uri, id, followers, genres, images } = element
-        const image = images['0']['url']
-        artista.push({ name, uri, id, followers, genres, image })
-    });
-
-    console.log(artista);
-    res.end(JSON.stringify({ artista }))
+    controllerBack.pedidoArtista(req, res, tokens)
 })
 
 app.get('/pedidoAlbuns', async (req, res) => {
-    console.log(tokens)
-    const albunsPromisse = await fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=album&limit=18', {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + tokens.access_token
-        }
-    })
-    const album = []
-
-    const albunsRecebidos = await albunsPromisse.json();
-    albunsRecebidos.albums.items.forEach(element => {
-        const { name, uri, id, images } = element
-        const image = images['0']['url']
-        album.push({ name, uri, id, image })
-    });
-
-    console.log(album);
-    res.end(JSON.stringify({ album }))
+    controllerBack.pedidoAlbuns(req, res, tokens)
 })
 
 app.get('/pedidoPlaylists', async (req, res) => {
-    const playlistsPromisse = await fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=playlist&limit=18', {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + tokens.access_token
-        }
-    })
-    const playlist = []
-
-    const playlistsRecebidos = await playlistsPromisse.json();
-    playlistsRecebidos.playlists.items.forEach(element => {
-        if (!element) return
-        const { name, uri, id, images } = element
-        const image = images['0']['url']
-        playlist.push({ name, uri, id, image }) //quando sobrar só esse
-    });
-
-    res.end(JSON.stringify({ playlist }))
+    controllerBack.pedidoPlaylists(req, res, tokens)
 })
 
 //pesquisa
 
 app.post('/fazerPesquisa', async (req, res) => {
-    req.on('data', async (body) => {
-        const digitado = JSON.parse(body);
-
-        console.log(digitado)
-        const dadosPromisse = await fetch(`https://api.spotify.com/v1/search?q=${digitado}&type=album%2Cplaylist%2Cartist%2Ctrack`, {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + tokens.access_token
-            }
-        })
-        const dados = await dadosPromisse.json();
-
-        const musica = []
-        const artista = []
-        const album = []
-        const playlist = []
-
-        dados.tracks.items.forEach(element => {
-            const { artists, id, name, album: album1, href } = element
-            const artist = artists['0']['name']
-            const album = album1.name
-            const image = album1.images['0']['url']
-            const audio = href
-            musica.push({ name, artist, id, album, image, audio })
-        });
-
-        dados.artists.items.forEach(element => {
-            const { name, uri, id, followers, genres, images } = element
-            const image = images['0']['url']
-            artista.push({ name, uri, id, followers, genres, image })
-        });
-
-        dados.albums.items.forEach(element => {
-            const { name, uri, id, images } = element
-            const image = images['0']['url']
-            album.push({ name, uri, id, image })
-        });
-
-        dados.playlists.items.forEach(element => {
-            if (!element) return
-            const { name, uri, id, images } = element
-            const image = images['0']['url']
-            playlist.push({ name, uri, id, image }) //quando sobrar só esse
-        });
-        //falta playlist
-        console.log(dados);
-        res.writeHead(200, { "Content-Type": "application/json" })
-        res.end(JSON.stringify({ musica, artista, album, playlist }))
-    })
+    controllerBack.fazerPesquisa(req, res, tokens)
 })
 
 //sistema de click
 app.post('/clicarCardArtista', async (req, res) => {
-    req.on('data', async (body) => {
-        const idDoAlbum = JSON.parse(body);
-
-        const dadosPromisseMusicas = await fetch(`https://api.spotify.com/v1/artists/${idDoAlbum}/top-tracks`, {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + tokens.access_token
-            }
-        })
-        const dadosMusicas = await dadosPromisseMusicas.json();
-
-        const dadosPromisseAlbuns = await fetch(`https://api.spotify.com/v1/artists/${idDoAlbum}/albums`, {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + tokens.access_token
-            }
-        })
-        const dadosAlbuns = await dadosPromisseAlbuns.json();
-
-        const musica = []
-        const album = []
-
-        dadosMusicas.tracks.forEach(element => {
-            const { artists, id, name, album: album1, href } = element
-            const artist = artists['0']['name']
-            const audio = href
-            musica.push({ artist, id, audio, name })
-        });
-
-        dadosAlbuns.items.forEach(element => {
-            const { name, uri, id, images } = element
-            const image = images['0']['url']
-            album.push({ name, uri, id, image })
-        });
-
-
-        res.writeHead(200, { "Content-Type": "application/json" })
-        res.end(JSON.stringify({ musica, album }))
-    })
+    controllerBack.clicarCardArtista(req, res, tokens)
 })
 
 app.post('/clicarCardAlbum', async (req, res) => {
-    req.on('data', async (body) => {
-        const idDoAlbum = JSON.parse(body);
-
-        const dadosPromisse = await fetch(`https://api.spotify.com/v1/albums/${idDoAlbum}`, {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + tokens.access_token
-            }
-        })
-        const dados = await dadosPromisse.json();
-
-        const musica = []
-
-        dados.tracks.items.forEach(element => {
-            const { artists, id, name, album: album1, href } = element
-            const artist = artists['0']['name']
-            const audio = href
-            const { name: album, images } = dados
-            const image = images['0']['url']
-            musica.push({ album, artist, id, audio, name, image })
-        });
-
-        console.log(dados);
-        res.writeHead(200, { "Content-Type": "application/json" })
-        res.end(JSON.stringify({ musica }))
-    })
+    controllerBack.clicarCardAlbum(req, res, tokens)
 })
 
 app.post('/clicarCardPlaylist', async (req, res) => {
-    req.on('data', async (body) => {
-        const idDaPlaylist = JSON.parse(body);
-
-        const dadosPromisse = await fetch(`https://api.spotify.com/v1/playlists/${idDaPlaylist}`, {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + tokens.access_token
-            }
-        })
-        const dados = await dadosPromisse.json();
-
-        const musica = []
-
-        dados.tracks.items.forEach(element => {
-            const { artists, id, name, album: album1, href } = element.track
-            const artist = artists['0']['name']
-            const audio = href
-            const image = album1["images"]['0']['url']
-            const album = album1.name
-            musica.push({ album, artist, id, audio, name, image })
-        });
-
-        console.log(dados);
-        res.writeHead(200, { "Content-Type": "application/json" })
-        res.end(JSON.stringify({ musica }))
-    })
+    controllerBack.clicarCardPlaylist(req, res, tokens)
 })
 
 app.listen(PORT, () => {
