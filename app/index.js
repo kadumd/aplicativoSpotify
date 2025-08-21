@@ -11,7 +11,7 @@ const controllerBack = new ControllerBack(modelBack)
 
 const __filename = fileURLToPath(import.meta.url)//dirname
 const __dirname = path.dirname(__filename)//dirname 
-const PORT = 8080//número da porta
+const PORT = 8080//número da porta 
 const app = express()//executa o express
 const client_secret = '180d2f1825964e27928ae8a71d63deaa';//esse é o client secret, o meu id naquele site do spotify, ninguém pode ter acesso a ele além de mim
 const client_id = '604aceaaeef840178bfa2e0d856e6b61';//esse é o id do client, esse outra pessoa pode ter acesso

@@ -11,3 +11,7 @@ Na playlist funcionou da mesma forma que o album
 
 uma ideia interessante de usar o model é usar a mesma coisa que o criar card, quando eu precisar fazer um pedido eu passo o
 pedido em forma de string como parametro e o body como parametro que é o que eu vou usar na api
+
+client secret 180d2f1825964e27928ae8a71d63deaa
+
+client id 604aceaaeef840178bfa2e0d856e6b61

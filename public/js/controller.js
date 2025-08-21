@@ -12,6 +12,8 @@ export default class Controller {
         const dados = await this.model.receberDadosDasMusicasEArtistasAbaTodos()
         this.criarCards.criarCardsMusicas(dados, "lista-de-musicas")
         this.criarCards.criarCardsArtistas(dados, "lista-de-artistas")
+        this.criarCards.criarCardsAlbuns(dados, "lista-de-albuns")
+        this.criarCards.criarCardsPlaylists(dados, "lista-de-playlists")
     }
 
     pegarMusicasAbaMusicas = async () => {

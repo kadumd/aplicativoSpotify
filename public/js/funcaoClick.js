@@ -96,12 +96,17 @@ export default class FuncaoClick {
         const divMusicasDosDadosRecebidos = document.createElement('div')
         divMusicasDosDadosRecebidos.id = "div-musicas-dos-dados-recebidos"
 
+        const subtituloAlbum = document.createElement('div')
+        subtituloAlbum.classList.add("subtituloAlbum")
+        subtituloAlbum.textContent = 'Albuns'
+
         const divAlbumDosDadosRecebidos = document.createElement('div')
         divAlbumDosDadosRecebidos.id = "div-album-dos-dados-recebidos"
 
         sectionClick.appendChild(tituloAlbum)
         sectionClick.appendChild(subtituloMusicas)
         sectionClick.appendChild(divMusicasDosDadosRecebidos)
+        sectionClick.appendChild(subtituloAlbum)
         sectionClick.appendChild(divAlbumDosDadosRecebidos)
 
         criarCards.criarCardsMusicas(element, "div-musicas-dos-dados-recebidos")

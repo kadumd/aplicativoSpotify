@@ -4,15 +4,19 @@ export default class ControllerBack {
     }
 
     pedidoMusicaEArtistaTodos = async (req, res, tokens) => {
-        console.log(tokens)
         const musicasPromisse = await this.model.pedidoMusicaTodos(tokens)
         const artistasPromisse = await this.model.pedidoArtistaTodos(tokens)
+        const albunsPromisse = await this.model.pedidoAlbumTodos(tokens)
+        const playlistsPromisse = await this.model.pedidoPlaylistTodos(tokens)
 
         const musica = []
         const artista = []
+        const album = []
+        const playlist = []
 
         const musicasRecebidas = await musicasPromisse.json();
         musicasRecebidas.tracks.items.forEach(element => {
+            if (!element) return
             const { artists, id, name, album: album1, href } = element
             const artist = artists['0']['name']
             const album = album1.name
@@ -23,23 +27,40 @@ export default class ControllerBack {
 
         const artistasRecebidos = await artistasPromisse.json();
         artistasRecebidos.artists.items.forEach(element => {
+            if (!element) return
             const { name, uri, id, followers, genres, images } = element
             const image = images['0']['url']
             artista.push({ name, uri, id, followers, genres, image })
         });
 
-        console.log(musica, artista);
-        res.end(JSON.stringify({ musica, artista }))
-    }
+        const albunsRecebidos = await albunsPromisse.json();
+        console.log(albunsRecebidos)
+        albunsRecebidos.albums.items.forEach(element => {
+            if (!element) return
+            const { name, uri, id, images } = element
+            const image = images['0']['url']
+            album.push({ name, uri, id, image })
+        });
+
+        const playlistsRecebidos = await playlistsPromisse.json();
+        playlistsRecebidos.playlists.items.forEach(element => {
+            if (!element) return
+            const { name, uri, id, images } = element
+            const image = images['0']['url']
+            playlist.push({ name, uri, id, image }) //quando sobrar só esse
+        });
+
+        res.end(JSON.stringify({ musica, artista, album, playlist }))  
+    } 
 
     pedidoMusica = async (req, res, tokens) => {
-        console.log(tokens)
         const musicasPromisse = await this.model.pedidoMusica(tokens)
 
         const musica = []
 
         const musicasRecebidas = await musicasPromisse.json();
         musicasRecebidas.tracks.items.forEach(element => {
+            if (!element) return
             const { artists, id, name, album: album1, href } = element
             const artist = artists['0']['name']
             const album = album1.name
@@ -48,7 +69,6 @@ export default class ControllerBack {
             musica.push({ name, artist, id, album, image, audio })
         });
 
-        console.log(musica);
         res.end(JSON.stringify({ musica }))
     }
 
@@ -58,28 +78,27 @@ export default class ControllerBack {
 
         const artistasRecebidos = await artistasPromisse.json();
         artistasRecebidos.artists.items.forEach(element => {
+            if (!element) return
             const { name, uri, id, followers, genres, images } = element
             const image = images['0']['url']
             artista.push({ name, uri, id, followers, genres, image })
         });
 
-        console.log(artista);
         res.end(JSON.stringify({ artista }))
     }
 
     pedidoAlbuns = async (req, res, tokens) => {
-        console.log(tokens)
         const albunsPromisse = await this.model.pedidoAlbuns(tokens)
         const album = []
 
         const albunsRecebidos = await albunsPromisse.json();
         albunsRecebidos.albums.items.forEach(element => {
+            if (!element) return
             const { name, uri, id, images } = element
             const image = images['0']['url']
             album.push({ name, uri, id, image })
         });
 
-        console.log(album);
         res.end(JSON.stringify({ album }))
     }
 
@@ -101,6 +120,7 @@ export default class ControllerBack {
     fazerPesquisa = async (req, res, tokens) => {
         req.on('data', async (body) => {
             const digitado = JSON.parse(body);
+            if(digitado === '') return
 
             const dadosPromisse = await this.model.fazerPesquisa(tokens, digitado)
 
@@ -112,6 +132,7 @@ export default class ControllerBack {
             const playlist = []
 
             dados.tracks.items.forEach(element => {
+                if (!element) return
                 const { artists, id, name, album: album1, href } = element
                 const artist = artists['0']['name']
                 const album = album1.name
@@ -121,12 +142,15 @@ export default class ControllerBack {
             });
 
             dados.artists.items.forEach(element => {
+                if (!element) return
                 const { name, uri, id, followers, genres, images } = element
+                if(!images['0']) return
                 const image = images['0']['url']
                 artista.push({ name, uri, id, followers, genres, image })
-            });
+            }); 
 
             dados.albums.items.forEach(element => {
+                if (!element) return
                 const { name, uri, id, images } = element
                 const image = images['0']['url']
                 album.push({ name, uri, id, image })
@@ -139,7 +163,6 @@ export default class ControllerBack {
                 playlist.push({ name, uri, id, image })
             });
 
-            console.log(dados);
             res.writeHead(200, { "Content-Type": "application/json" })
             res.end(JSON.stringify({ musica, artista, album, playlist }))
         })
@@ -159,6 +182,7 @@ export default class ControllerBack {
             const album = []
 
             dadosMusicas.tracks.forEach(element => {
+                if (!element) return
                 const { artists, id, name, album: album1, href } = element
                 const artist = artists['0']['name']
                 const audio = href
@@ -166,6 +190,7 @@ export default class ControllerBack {
             });
 
             dadosAlbuns.items.forEach(element => {
+                if (!element) return
                 const { name, uri, id, images } = element
                 const image = images['0']['url']
                 album.push({ name, uri, id, image })
@@ -187,6 +212,7 @@ export default class ControllerBack {
             const musica = []
 
             dados.tracks.items.forEach(element => {
+                if (!element) return
                 const { artists, id, name, album: album1, href } = element
                 const artist = artists['0']['name']
                 const audio = href
@@ -195,7 +221,6 @@ export default class ControllerBack {
                 musica.push({ album, artist, id, audio, name, image })
             });
 
-            console.log(dados);
             res.writeHead(200, { "Content-Type": "application/json" })
             res.end(JSON.stringify({ musica }))
         })
@@ -211,6 +236,7 @@ export default class ControllerBack {
             const musica = []
 
             dados.tracks.items.forEach(element => {
+                if (!element) return
                 const { artists, id, name, album: album1, href } = element.track
                 const artist = artists['0']['name']
                 const audio = href
@@ -219,7 +245,6 @@ export default class ControllerBack {
                 musica.push({ album, artist, id, audio, name, image })
             });
 
-            console.log(dados);
             res.writeHead(200, { "Content-Type": "application/json" })
             res.end(JSON.stringify({ musica }))
         })

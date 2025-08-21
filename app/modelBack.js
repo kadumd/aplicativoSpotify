@@ -1,6 +1,15 @@
 export default class ModelBack {
     pedidoMusicaTodos = async (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&limit=3', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&limit=10', {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + tokens.access_token
+            }
+        })
+    } 
+ 
+    pedidoArtistaTodos = (tokens) => {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=artist&limit=5', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
@@ -8,8 +17,17 @@ export default class ModelBack {
         })
     }
 
-    pedidoArtistaTodos = (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=artist&limit=5', {
+    pedidoAlbumTodos = (tokens) => {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=album&limit=5', {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + tokens.access_token
+            }
+        })
+    }
+
+    pedidoPlaylistTodos = (tokens) => {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=playlist&limit=8', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
