@@ -1,6 +1,6 @@
 export default class ModelBack {
     pedidoMusicaTodos = async (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&limit=10', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&limit=20', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
@@ -9,7 +9,7 @@ export default class ModelBack {
     } 
  
     pedidoArtistaTodos = (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=artist&limit=5', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=artist&limit=20', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
@@ -18,7 +18,7 @@ export default class ModelBack {
     }
 
     pedidoAlbumTodos = (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=album&limit=5', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=album&limit=20', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
@@ -27,7 +27,7 @@ export default class ModelBack {
     }
 
     pedidoPlaylistTodos = (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=playlist&limit=8', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=playlist&limit=20', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
@@ -36,7 +36,7 @@ export default class ModelBack {
     }
 
     pedidoMusica = async (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&limit=8', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&limit=20', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
@@ -45,16 +45,16 @@ export default class ModelBack {
     }
 
     pedidoArtista = async (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=artist&limit=18', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=artist&limit=24', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
             }
         })
-    }
+    } 
 
     pedidoAlbuns = async (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=album&limit=18', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=album&limit=24', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
@@ -63,7 +63,7 @@ export default class ModelBack {
     }
 
     pedidoPlaylists = async (tokens) => {
-        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=playlist&limit=18', {
+        return fetch('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=playlist&limit=24', {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
@@ -113,6 +113,15 @@ export default class ModelBack {
             headers: {
                 "Authorization": "Bearer " + tokens.access_token
             }
+        })
+    }
+
+    clicarCardMusica = async (tokens, idDaMusica) => {
+        return fetch(`https://api.spotify.com/v1/audio-features/${idDaMusica}`, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + tokens.access_token
+            } 
         })
     }
 } 

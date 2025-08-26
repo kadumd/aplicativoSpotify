@@ -19,6 +19,7 @@
     width: 100%;
     gap: 0px 20px;
     overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 #resultadoDaPesquisaAlbuns{
@@ -28,6 +29,7 @@
     width: 100%;
     gap: 0px 20px;
     overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 #resultadoDaPesquisaPlaylists{
@@ -37,4 +39,5 @@
     width: 100%;
     gap: 0px 20px;
     overflow-x: scroll;
+    overflow-y: hidden;
 }

@@ -112,4 +112,9 @@ export default class FuncaoClick {
         criarCards.criarCardsMusicas(element, "div-musicas-dos-dados-recebidos")
         criarCards.criarCardsAlbuns(element, "div-album-dos-dados-recebidos")
     }
+
+    clickCardMusica = async (dadosDaMusicaId) => {
+        const pedido = await this.model.pedidoClicar('/clicarCardMusica', dadosDaMusicaId)
+        console.log(pedido)
+    }
 }

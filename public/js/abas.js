@@ -18,7 +18,12 @@ export default class MudancaDeAba {
     sectionArtistas = document.querySelector('#section-artistas')
     sectionAlbuns = document.querySelector('#section-albuns')
     sectionPlaylists = document.querySelector('#section-playlists')
-    sections = document.querySelectorAll('.section')    
+    sections = document.querySelectorAll('.section')
+
+    setaVoltar = document.querySelector('#voltar')
+
+    sectionAnterior = 'section-todos'
+    abaAnterior = 'aba-todos'
 
     detectarClicksEMudancasDeAbas = () => {
         this.home.addEventListener('click', this.irParaOInicioOuAbaTodos)
@@ -27,6 +32,24 @@ export default class MudancaDeAba {
         this.abaArtistas.addEventListener('click', this.irParaAbaArtistas)
         this.abaAlbuns.addEventListener('click', this.irParaAbaAlbuns)
         this.abaPlaylists.addEventListener('click', this.irParaAbaPlaylists)
+        this.setaVoltar.addEventListener('click', this.voltarAPaginaAnterior)
+    }
+
+    voltarAPaginaAnterior = () => {
+        let sectionAnterior = document.querySelector(`#${this.sectionAnterior}`)
+        console.log(sectionAnterior)
+        this.sections.forEach(e => {
+            e.style.display = 'none'
+            this.nav.style.display = 'flex'
+            sectionAnterior.style.display = 'flex'
+        });
+        let abaAnterior = document.querySelector(`#${this.abaAnterior}`)
+        this.abas.forEach(e => {
+            e.style.color = 'white'
+            e.style.backgroundColor = 'rgb(59, 59, 59)'
+            abaAnterior.style.color = 'rgb(59, 59, 59)'
+            abaAnterior.style.backgroundColor = 'white'
+        });
     }
 
     irParaOInicioOuAbaTodos = () => {
@@ -45,53 +68,93 @@ export default class MudancaDeAba {
 
     irParaAbaMusicas = () => {
         this.sections.forEach(e => {
-            e.style.display = 'none'
-            this.sectionMusicas.style.display = 'grid'//flex, eu usei o grid pra resolver o problema do tamanho das divs mas tenho que ter cuidado pra isso não influenciar muito
+            if (e.style.display === 'flex') {
+                this.sectionAnterior = e.id
+            }
+            setTimeout(() => {
+                e.style.display = 'none'
+                this.sectionMusicas.style.display = 'grid'//flex, eu usei o grid pra resolver o problema do tamanho das divs mas tenho que ter cuidado pra isso não influenciar muito
+            }, 100);
         });
         this.abas.forEach(e => {
-            e.style.color = 'white'
-            e.style.backgroundColor = 'rgb(59, 59, 59)'
-            this.abaMusicas.style.color = 'rgb(59, 59, 59)'
-            this.abaMusicas.style.backgroundColor = 'white'
+            if (e.style.backgroundColor === 'white') {
+                this.abaAnterior = e.id
+            }
+            setTimeout(() => {
+                e.style.color = 'white'
+                e.style.backgroundColor = 'rgb(59, 59, 59)'
+                this.abaMusicas.style.color = 'rgb(59, 59, 59)'
+                this.abaMusicas.style.backgroundColor = 'white'
+            }, 100);
         });
     }
 
     irParaAbaArtistas = () => {
         this.sections.forEach(e => {
-            e.style.display = 'none'
-            this.sectionArtistas.style.display = 'flex'
+            if (e.style.display === 'flex') {
+                this.sectionAnterior = e.id
+            }
+            setTimeout(() => {
+                e.style.display = 'none'
+                this.sectionArtistas.style.display = 'flex'
+            }, 100);
         });
         this.abas.forEach(e => {
-            e.style.color = 'white'
-            e.style.backgroundColor = 'rgb(59, 59, 59)'
-            this.abaArtistas.style.color = 'rgb(59, 59, 59)'
-            this.abaArtistas.style.backgroundColor = 'white'
+            if (e.style.backgroundColor === 'white') {
+                this.abaAnterior = e.id
+            }
+            setTimeout(() => {
+                e.style.color = 'white'
+                e.style.backgroundColor = 'rgb(59, 59, 59)'
+                this.abaArtistas.style.color = 'rgb(59, 59, 59)'
+                this.abaArtistas.style.backgroundColor = 'white'
+            }, 100);
         });
     }
 
     irParaAbaAlbuns = () => {
         this.sections.forEach(e => {
-            e.style.display = 'none'
-            this.sectionAlbuns.style.display = 'flex'
+            if (e.style.display === 'flex') {
+                this.sectionAnterior = e.id
+            }
+            setTimeout(() => {
+                e.style.display = 'none'
+                this.sectionAlbuns.style.display = 'flex'
+            }, 100);
         });
         this.abas.forEach(e => {
-            e.style.color = 'white'
-            e.style.backgroundColor = 'rgb(59, 59, 59)'
-            this.abaAlbuns.style.color = 'rgb(59, 59, 59)'
-            this.abaAlbuns.style.backgroundColor = 'white'
+            if (e.style.backgroundColor === 'white') {
+                this.abaAnterior = e.id
+            }
+            setTimeout(() => {
+                e.style.color = 'white'
+                e.style.backgroundColor = 'rgb(59, 59, 59)'
+                this.abaAlbuns.style.color = 'rgb(59, 59, 59)'
+                this.abaAlbuns.style.backgroundColor = 'white'
+            }, 100);
         });
     }
-    
+
     irParaAbaPlaylists = () => {
         this.sections.forEach(e => {
-            e.style.display = 'none'
-            this.sectionPlaylists.style.display = 'flex'
+            if (e.style.display === 'flex') {
+                this.sectionAnterior = e.id
+            }
+            setTimeout(() => {
+                e.style.display = 'none'
+                this.sectionPlaylists.style.display = 'flex'
+            }, 100);
         });
         this.abas.forEach(e => {
-            e.style.color = 'white'
-            e.style.backgroundColor = 'rgb(59, 59, 59)'
-            this.abaPlaylists.style.color = 'rgb(59, 59, 59)'
-            this.abaPlaylists.style.backgroundColor = 'white'
+            if (e.style.backgroundColor === 'white') {
+                this.abaAnterior = e.id
+            }
+            setTimeout(() => {
+                e.style.color = 'white'
+                e.style.backgroundColor = 'rgb(59, 59, 59)'
+                this.abaPlaylists.style.color = 'rgb(59, 59, 59)'
+                this.abaPlaylists.style.backgroundColor = 'white'
+            }, 100);
         });
     }
 }

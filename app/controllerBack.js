@@ -17,12 +17,13 @@ export default class ControllerBack {
         const musicasRecebidas = await musicasPromisse.json();
         musicasRecebidas.tracks.items.forEach(element => {
             if (!element) return
-            const { artists, id, name, album: album1, href } = element
-            const artist = artists['0']['name']
-            const album = album1.name
-            const image = album1.images['0']['url']
-            const audio = href
-            musica.push({ name, artist, id, album, image, audio })
+            if (element.explicit === false) {
+                const { artists, id, name, album: album1 } = element
+                const artist = artists['0']['name']
+                const album = album1.name
+                const image = album1.images['0']['url']
+                musica.push({ name, artist, id, album, image })
+            }
         });
 
         const artistasRecebidos = await artistasPromisse.json();
@@ -50,8 +51,8 @@ export default class ControllerBack {
             playlist.push({ name, uri, id, image }) //quando sobrar só esse
         });
 
-        res.end(JSON.stringify({ musica, artista, album, playlist }))  
-    } 
+        res.end(JSON.stringify({ musica, artista, album, playlist }))
+    }
 
     pedidoMusica = async (req, res, tokens) => {
         const musicasPromisse = await this.model.pedidoMusica(tokens)
@@ -61,12 +62,13 @@ export default class ControllerBack {
         const musicasRecebidas = await musicasPromisse.json();
         musicasRecebidas.tracks.items.forEach(element => {
             if (!element) return
-            const { artists, id, name, album: album1, href } = element
-            const artist = artists['0']['name']
-            const album = album1.name
-            const image = album1.images['0']['url']
-            const audio = href
-            musica.push({ name, artist, id, album, image, audio })
+            if (element.explicit === false) {
+                const { artists, id, name, album: album1 } = element
+                const artist = artists['0']['name']
+                const album = album1.name
+                const image = album1.images['0']['url']
+                musica.push({ name, artist, id, album, image })
+            }
         });
 
         res.end(JSON.stringify({ musica }))
@@ -120,7 +122,7 @@ export default class ControllerBack {
     fazerPesquisa = async (req, res, tokens) => {
         req.on('data', async (body) => {
             const digitado = JSON.parse(body);
-            if(digitado === '') return
+            if (digitado === '') return
 
             const dadosPromisse = await this.model.fazerPesquisa(tokens, digitado)
 
@@ -133,21 +135,22 @@ export default class ControllerBack {
 
             dados.tracks.items.forEach(element => {
                 if (!element) return
-                const { artists, id, name, album: album1, href } = element
-                const artist = artists['0']['name']
-                const album = album1.name
-                const image = album1.images['0']['url']
-                const audio = href
-                musica.push({ name, artist, id, album, image, audio })
+                if (element.explicit === false) {
+                    const { artists, id, name, album: album1 } = element
+                    const artist = artists['0']['name']
+                    const album = album1.name
+                    const image = album1.images['0']['url']
+                    musica.push({ name, artist, id, album, image })
+                }
             });
 
             dados.artists.items.forEach(element => {
                 if (!element) return
                 const { name, uri, id, followers, genres, images } = element
-                if(!images['0']) return
+                if (!images['0']) return
                 const image = images['0']['url']
                 artista.push({ name, uri, id, followers, genres, image })
-            }); 
+            });
 
             dados.albums.items.forEach(element => {
                 if (!element) return
@@ -183,10 +186,12 @@ export default class ControllerBack {
 
             dadosMusicas.tracks.forEach(element => {
                 if (!element) return
-                const { artists, id, name, album: album1, href } = element
-                const artist = artists['0']['name']
-                const audio = href
-                musica.push({ artist, id, audio, name })
+                if (element.explicit === false) {
+                    const { artists, id, name, album: album1 } = element
+                    const artist = artists['0']['name'] 
+                    const image = album1.images['0']['url']
+                    musica.push({ artist, id, name, image })
+                }
             });
 
             dadosAlbuns.items.forEach(element => {
@@ -213,12 +218,13 @@ export default class ControllerBack {
 
             dados.tracks.items.forEach(element => {
                 if (!element) return
-                const { artists, id, name, album: album1, href } = element
-                const artist = artists['0']['name']
-                const audio = href
-                const { name: album, images } = dados
-                const image = images['0']['url']
-                musica.push({ album, artist, id, audio, name, image })
+                if (element.explicit === false) {
+                    const { artists, id, name, album: album1 } = element
+                    const artist = artists['0']['name']
+                    const { name: album, images } = dados
+                    const image = images['0']['url']
+                    musica.push({ album, artist, id, name, image })
+                }
             });
 
             res.writeHead(200, { "Content-Type": "application/json" })
@@ -237,16 +243,31 @@ export default class ControllerBack {
 
             dados.tracks.items.forEach(element => {
                 if (!element) return
-                const { artists, id, name, album: album1, href } = element.track
-                const artist = artists['0']['name']
-                const audio = href
-                const image = album1["images"]['0']['url']
-                const album = album1.name
-                musica.push({ album, artist, id, audio, name, image })
+                if (element.explicit === false) {
+                    const { artists, id, name, album: album1 } = element.track
+                    const artist = artists['0']['name']
+                    const image = album1["images"]['0']['url']
+                    const album = album1.name
+                    musica.push({ album, artist, id, name, image })
+                }
             });
 
             res.writeHead(200, { "Content-Type": "application/json" })
             res.end(JSON.stringify({ musica }))
         })
     }
-}
+
+    clicarCardMusica = async (req, res, tokens) => {
+        req.on('data', async (body) => {
+            const idDaMusica = JSON.parse(body);
+
+            const dadosPromisse = await this.model.clicarCardMusica(tokens, idDaMusica)
+            const dados = await dadosPromisse.json();
+
+            console.log(dados)
+
+            res.writeHead(200, { "Content-Type": "application/json" })
+            res.end(JSON.stringify({ dados }))
+        })
+    }
+} 

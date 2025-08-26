@@ -52,6 +52,8 @@ export default class CriarCards {
             faixaDeMusica.appendChild(caracteristicasPrincipaisMusica)
             faixaDeMusica.appendChild(nomeDoAlbumDuracaoDaMusica)
             sectionMusicas.appendChild(faixaDeMusica)
+
+            faixaDeMusica.addEventListener('click', () => { this.funcaoClick.clickCardMusica(element.id) })
         });
     }
 

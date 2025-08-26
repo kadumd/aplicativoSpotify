@@ -13,8 +13,8 @@ const __filename = fileURLToPath(import.meta.url)//dirname
 const __dirname = path.dirname(__filename)//dirname 
 const PORT = 8080//número da porta 
 const app = express()//executa o express
-const client_secret = '180d2f1825964e27928ae8a71d63deaa';//esse é o client secret, o meu id naquele site do spotify, ninguém pode ter acesso a ele além de mim
-const client_id = '604aceaaeef840178bfa2e0d856e6b61';//esse é o id do client, esse outra pessoa pode ter acesso
+const client_secret = 'cae30ff8dc774da882f6e52070d20c8f';//esse é o client secret, o meu id naquele site do spotify, ninguém pode ter acesso a ele além de mim
+const client_id = 'd89600f3da1544abb2445bb38aadd52f';//esse é o id do client, esse outra pessoa pode ter acesso
 const redirect_uri = 'http://127.0.0.1:8080/redirecionamentoSpotify';
 const tokens = {}//essa const é pra salvar o token pra que a pessoa não precise ficar fazendo login direto 
 
@@ -95,6 +95,10 @@ app.post('/clicarCardAlbum', async (req, res) => {
 
 app.post('/clicarCardPlaylist', async (req, res) => {
     controllerBack.clicarCardPlaylist(req, res, tokens)
+})
+
+app.post('/clicarCardMusica', async (req, res) => {
+    controllerBack.clicarCardMusica(req, res, tokens)
 })
 
 app.listen(PORT, () => {
